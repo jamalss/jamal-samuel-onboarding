@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setting Up Google Analytics — A Simple Step-by-Step Guide</title>
+<style>
+  :root{
+    --navy:#1a2b4a;
+    --blue:#1a73e8;
+    --green:#0f9d58;
+    --orange:#f4a300;
+    --bg:#f6f8fb;
+    --card:#ffffff;
+    --text:#243044;
+    --muted:#5a6b85;
+    --border:#e3e8f0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    padding:0 16px;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding-block:32px 80px;}
+
+  /* Hero */
+  .hero{
+    text-align:center;
+    padding:40px 24px 36px;
+    background:linear-gradient(135deg,var(--navy),#26407a);
+    color:#fff;
+    border-radius:20px;
+    margin-bottom:36px;
+  }
+  .hero .icon-row{font-size:34px;margin-bottom:10px;letter-spacing:6px;}
+  .hero h1{font-size:1.7rem;margin:0 0 12px;}
+  .hero p{font-size:1.02rem;color:#dbe4f7;max-width:520px;margin:0 auto;}
+
+  /* Intro card */
+  .intro-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 24px;
+    margin-bottom:32px;
+  }
+  .intro-card p{margin:0 0 12px;}
+  .intro-card p:last-child{margin-bottom:0;}
+  .time-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    background:#eaf2ff;color:var(--blue);
+    font-size:0.85rem;font-weight:600;
+    padding:6px 12px;border-radius:999px;margin-bottom:14px;
+  }
+
+  /* Part divider */
+  .part-header{
+    display:flex;align-items:center;gap:14px;
+    margin:44px 0 22px;
+  }
+  .part-header .num{
+    flex:none;width:40px;height:40px;border-radius:50%;
+    background:var(--blue);color:#fff;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  }
+  .part-header h2{margin:0;font-size:1.25rem;}
+  .part-header p{margin:2px 0 0;color:var(--muted);font-size:0.92rem;}
+
+  .skip-note{
+    background:#fff8e6;border:1px solid #f4dfa0;
+    border-radius:12px;padding:14px 18px;margin-bottom:26px;
+    font-size:0.94rem;
+  }
+  .skip-note strong{color:#8a6400;}
+
+  /* Steps */
+  .step{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 22px 24px;
+    margin-bottom:22px;
+    position:relative;
+  }
+  .step-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+  .step-badge{
+    flex:none;width:32px;height:32px;border-radius:50%;
+    background:var(--navy);color:#fff;font-weight:700;font-size:0.95rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step h3{margin:2px 0 0;font-size:1.08rem;}
+  .step .explain{
+    color:var(--muted);
+    font-size:0.95rem;
+    margin:0 0 14px 44px;
+  }
+  .step .action{
+    margin:0 0 14px 44px;
+    font-size:1rem;
+  }
+  .step .action b{color:var(--navy);}
+  .step img{
+    display:block;
+    width:100%;
+    border-radius:10px;
+    border:1px solid var(--border);
+    box-shadow:0 2px 10px rgba(20,30,60,0.06);
+  }
+  .caption{
+    font-size:0.82rem;color:var(--muted);
+    text-align:center;margin-top:8px;
+  }
+
+  .callout{
+    margin:0 0 14px 44px;
+    background:#eefbf3;border:1px solid #bfe8cf;
+    border-radius:10px;padding:12px 14px;
+    font-size:0.92rem;color:#155a33;
+  }
+
+  /* Email copy box */
+  .email-box{
+    margin:0 0 16px 44px;
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+    background:#f0f5ff;border:1.5px dashed var(--blue);
+    border-radius:10px;padding:12px 14px;
+  }
+  .email-box code{
+    font-size:1.02rem;font-weight:700;color:var(--navy);
+    background:transparent;
+  }
+  .copy-btn{
+    border:none;background:var(--blue);color:#fff;
+    padding:8px 14px;border-radius:8px;font-size:0.88rem;
+    cursor:pointer;font-weight:600;
+  }
+  .copy-btn:active{transform:scale(0.98);}
+  .copy-btn.copied{background:var(--green);}
+
+  /* Finish card */
+  .finish{
+    text-align:center;
+    background:linear-gradient(135deg,var(--green),#0b7a45);
+    color:#fff;
+    border-radius:18px;
+    padding:36px 24px;
+    margin-top:40px;
+  }
+  .finish .big-check{font-size:44px;margin-bottom:8px;}
+  .finish h2{margin:0 0 10px;}
+  .finish p{color:#dcf6e7;max-width:480px;margin:0 auto;}
+
+  @media (max-width:480px){
+    .step .explain,.step .action,.callout,.email-box{margin-left:0;}
+    .step-head{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="icon-row">📊 🤝 ✅</div>
+    <h1>Let's Set Up Google Analytics Together</h1>
+    <p>A friendly, no-rush walkthrough — just follow along one picture at a time and you'll have it done in about 10 minutes.</p>
+  </div>
+
+  <div class="intro-card">
+    <span class="time-pill">⏱ Takes about 10 minutes</span>
+    <p><strong>What is Google Analytics, and why are we doing this?</strong> Think of it like a visitor counter for your website — it quietly keeps track of how many people visit, where they come from, and which pages they like most. It's completely free, and it belongs to <em>you</em>. Nobody can take it away from you.</p>
+    <p>Below, we'll do this in two parts. <strong>Part 1</strong> creates your very own Google Analytics account (skip this if you already have one). <strong>Part 2</strong> is just three clicks to give me access as an "Administrator," so I can set everything up correctly on the technical side for you.</p>
+    <p>Take your time. There's no way to break anything here — every step can be undone, and I'm only ever one message away if something looks different on your screen.</p>
+  </div>
+
+  <!-- ===================== PART 1 ===================== -->
+  <div class="part-header">
+    <div class="num">1</div>
+    <div>
+      <h2>Creating Your Google Analytics Account</h2>
+      <p>Already have a Google Analytics account for your business? Skip straight down to Part 2.</p>
+    </div>
+  </div>
+
+  <div class="skip-note">
+    💡 <strong>Before you start:</strong> Go to <strong>analytics.google.com</strong> in your web browser and sign in with your business Google/Gmail account (the one you use for your business, not a personal one, if you can help it). Then follow along below.
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">1</div>
+      <h3>Create your account</h3>
+    </div>
+    <p class="explain">Google calls this "creating an account" — but really, it's just naming your little corner of Google Analytics. Most people simply use their business name.</p>
+    <p class="action">Type <b>your business or organization's name</b> into the box, then click <b>Next</b>.</p>
+    <img src="images/01-create-account.png" alt="Create an account screen with the business name entered">
+    <p class="caption">In this example, we typed "Next Gen Skills Foundation" — you'll type your own business name here instead.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">2</div>
+      <h3>Data sharing settings</h3>
+    </div>
+    <p class="explain">Google will show you a list of checkboxes about how your data can be used. These are all optional extras — the default (all checked) is perfectly fine and is what most businesses choose.</p>
+    <p class="action">You don't need to change anything here. Just scroll down and click <b>Next</b>.</p>
+    <img src="images/02-data-sharing-settings.png" alt="Account data sharing settings checkboxes">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">3</div>
+      <h3>Create your property</h3>
+    </div>
+    <p class="explain">A "property" is simply Google's word for your one website. It's asking for a name (just for your own reference), your time zone, and your currency.</p>
+    <p class="action">Enter your <b>business/website name</b> again, choose <b>your country/time zone</b> and <b>currency</b>, then click <b>Next</b>.</p>
+    <img src="images/03-create-property.png" alt="Create a property screen with property name, time zone and currency">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">4</div>
+      <h3>Describe your business</h3>
+    </div>
+    <p class="explain">This helps Google tailor a few of its reports and tips to businesses like yours. There's no wrong answer here.</p>
+    <p class="action">Pick the <b>industry category</b> that fits best, choose your <b>business size</b>, then click <b>Next</b>.</p>
+    <img src="images/04-business-details.png" alt="Describe your business screen with industry and business size">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">5</div>
+      <h3>Choose your business objectives</h3>
+    </div>
+    <p class="explain">This is just telling Google what you care about most, so it can highlight the right reports for you. Most small businesses do well with these two.</p>
+    <p class="action">Tick <b>"Generate leads"</b> and <b>"Understand web and/or app traffic"</b> (or whichever feels right for you), then click <b>Create</b>.</p>
+    <img src="images/05-business-objectives.png" alt="Choose your business objectives checklist">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">6</div>
+      <h3>Accept the Terms of Service</h3>
+    </div>
+    <p class="explain">Just like installing an app on your phone, Google needs you to agree to its terms before your account is created.</p>
+    <p class="action">Tick the little checkbox for the Data Processing Terms, then click <b>I Accept</b>.</p>
+    <img src="images/06-accept-terms.png" alt="Google Analytics Terms of Service Agreement popup">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">7</div>
+      <h3>Choose "Web" as your platform</h3>
+    </div>
+    <p class="explain">Google is asking where you want to track visitors — your website, an Android app, or an iPhone app. Since we're tracking your website, we'll choose the first one.</p>
+    <p class="action">Click <b>Web</b>.</p>
+    <img src="images/07-choose-platform.png" alt="Start collecting data - choose a platform screen">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">8</div>
+      <h3>Set up your data stream</h3>
+    </div>
+    <p class="explain">A "stream" is just Google's way of saying "the flow of visitor information coming from your website." You're simply telling it your website's address.</p>
+    <p class="action">Type in your <b>website's web address</b> (for example, www.yourbusiness.com), give the stream a name if you like, and click <b>Create & continue</b>.</p>
+    <img src="images/08-set-up-data-stream.png" alt="Set up data stream with website URL and stream name">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">9</div>
+      <h3>The Google tag screen — you can skip this</h3>
+    </div>
+    <p class="explain">This last screen shows a little piece of computer code. Don't worry about this part at all — this is exactly the technical piece I'll be handling for you once I have access.</p>
+    <p class="action">You can simply <b>close this window</b> (click the ✕ in the top-left corner). Nothing needs to be copied or pasted by you.</p>
+    <img src="images/09-google-tag.png" alt="Set up a Google tag screen showing code snippet">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">10</div>
+      <h3>All done — account created! 🎉</h3>
+    </div>
+    <p class="explain">You'll land on a page that says your data collection is "pending" — that's completely normal. It just means Google needs a day or two to start counting visits once the tracking code is in place.</p>
+    <div class="callout">✅ Your Google Analytics account now exists. Nothing more to do here — head to Part 2 below.</div>
+    <img src="images/10-data-collection-pending.png" alt="Data collection is pending confirmation screen">
+  </div>
+
+  <!-- ===================== PART 2 ===================== -->
+  <div class="part-header">
+    <div class="num">2</div>
+    <div>
+      <h2>Giving Me Administrator Access</h2>
+      <p>Just three clicks and a copy-paste. This lets me set up your reports and tracking correctly without needing your password.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">11</div>
+      <h3>Open the Admin settings</h3>
+    </div>
+    <p class="explain">"Admin" is simply the settings area of Google Analytics — it's tucked away in the bottom-left corner of the screen.</p>
+    <p class="action">On your Google Analytics home page, click the small gear (⚙️) icon labeled <b>Admin</b> in the bottom-left corner.</p>
+    <img src="images/11-click-admin.png" alt="Google Analytics home page with Admin gear icon highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">12</div>
+      <h3>Find "Account access management"</h3>
+    </div>
+    <p class="explain">This is the page where you control who is allowed into your account, and what they're allowed to do.</p>
+    <p class="action">In the left-hand list, under the <b>Account</b> heading, click <b>Account access management</b>.</p>
+    <img src="images/12-account-access-management.png" alt="Admin settings page with Account access management highlighted in sidebar">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">13</div>
+      <h3>Click the blue "+" button</h3>
+    </div>
+    <p class="explain">This little blue circle is how you add a new person to your account.</p>
+    <p class="action">Click the blue <b>+</b> button in the top-right corner of the page.</p>
+    <img src="images/13-click-plus-button.png" alt="Account access management page with plus button highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">14</div>
+      <h3>Choose "Add users"</h3>
+    </div>
+    <p class="explain">A small menu will pop up with two choices. We want the first one.</p>
+    <p class="action">Click <b>Add users</b>.</p>
+    <img src="images/14-add-users.png" alt="Dropdown menu with Add users option highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">15</div>
+      <h3>Add my email and set the role to Administrator</h3>
+    </div>
+    <p class="explain">This is the important step — it's how Google knows to let me in, and exactly how much I'm allowed to do.</p>
+    <p class="action">Type in the email address below, make sure <b>Administrator</b> is selected under "Standard roles," then click the blue <b>Add</b> button in the top-right.</p>
+    <div class="email-box">
+      <span>📧</span>
+      <code id="admin-email">jamalinks758@gmail.com</code>
+      <button class="copy-btn" onclick="copyEmail(this)">Copy email</button>
+    </div>
+    <img src="images/15-enter-email-set-role.png" alt="Add roles and data restrictions screen with email entered and Administrator selected">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">16</div>
+      <h3>You're finished! ✅</h3>
+    </div>
+    <p class="explain">You'll see your list of users update instantly, with the new email showing "Administrator" next to it. That's confirmation it worked.</p>
+    <img src="images/16-success.png" alt="Account access management list showing the new administrator added successfully">
+  </div>
+
+  <div class="finish">
+    <div class="big-check">🎉</div>
+    <h2>Thank you — that's everything!</h2>
+    <p>You've just set up your own Google Analytics account and safely handed over the technical keys. I'll take it from here and reach out once your tracking and reports are ready to explore.</p>
+  </div>
+
+</div>
+
+<script>
+function copyEmail(btn){
+  var email = document.getElementById('admin-email').textContent;
+  var done = function(){
+    var original = 'Copy email';
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(email).then(done).catch(function(){
+      fallbackCopy(email); done();
+    });
+  } else {
+    fallbackCopy(email); done();
+  }
+}
+function fallbackCopy(text){
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+}
+</script>
+
+</body>
+</html>
