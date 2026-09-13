@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setting Up Your Cookie Banner — A Simple Step-by-Step Guide</title>
+<style>
+  :root{
+    --navy:#14213d;
+    --blue:#2f6fed;
+    --green:#0f9d58;
+    --orange:#f4a300;
+    --bg:#f6f8fb;
+    --card:#ffffff;
+    --text:#243044;
+    --muted:#5a6b85;
+    --border:#e3e8f0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    padding:0 16px;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding-block:32px 80px;}
+
+  .hero{
+    text-align:center;
+    padding:40px 24px 36px;
+    background:linear-gradient(135deg,var(--navy),#1f3a75);
+    color:#fff;
+    border-radius:20px;
+    margin-bottom:36px;
+  }
+  .hero .icon-row{font-size:34px;margin-bottom:10px;letter-spacing:6px;}
+  .hero h1{font-size:1.7rem;margin:0 0 12px;}
+  .hero p{font-size:1.02rem;color:#dbe4f7;max-width:520px;margin:0 auto;}
+
+  .intro-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 24px;
+    margin-bottom:32px;
+  }
+  .intro-card p{margin:0 0 12px;}
+  .intro-card p:last-child{margin-bottom:0;}
+  .time-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    background:#eaf2ff;color:var(--blue);
+    font-size:0.85rem;font-weight:600;
+    padding:6px 12px;border-radius:999px;margin-bottom:14px;
+  }
+
+  .part-header{
+    display:flex;align-items:center;gap:14px;
+    margin:44px 0 22px;
+  }
+  .part-header .num{
+    flex:none;width:40px;height:40px;border-radius:50%;
+    background:var(--blue);color:#fff;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  }
+  .part-header h2{margin:0;font-size:1.25rem;}
+  .part-header p{margin:2px 0 0;color:var(--muted);font-size:0.92rem;}
+
+  .step{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 22px 24px;
+    margin-bottom:22px;
+    position:relative;
+  }
+  .step-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+  .step-badge{
+    flex:none;width:32px;height:32px;border-radius:50%;
+    background:var(--navy);color:#fff;font-weight:700;font-size:0.95rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step h3{margin:2px 0 0;font-size:1.08rem;}
+  .step .explain{
+    color:var(--muted);
+    font-size:0.95rem;
+    margin:0 0 14px 44px;
+  }
+  .step .action{
+    margin:0 0 14px 44px;
+    font-size:1rem;
+  }
+  .step .action b{color:var(--navy);}
+  .step img{
+    display:block;
+    width:100%;
+    border-radius:10px;
+    border:1px solid var(--border);
+    box-shadow:0 2px 10px rgba(20,30,60,0.06);
+  }
+  .caption{
+    font-size:0.82rem;color:var(--muted);
+    text-align:center;margin-top:8px;
+  }
+
+  .callout{
+    margin:0 0 14px 44px;
+    background:#eefbf3;border:1px solid #bfe8cf;
+    border-radius:10px;padding:12px 14px;
+    font-size:0.92rem;color:#155a33;
+  }
+  .warning{
+    margin:0 0 14px 44px;
+    background:#fff8e6;border:1px solid #f4dfa0;
+    border-radius:10px;padding:12px 14px;
+    font-size:0.92rem;color:#8a6400;
+  }
+
+  .email-box{
+    margin:0 0 16px 44px;
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+    background:#f0f5ff;border:1.5px dashed var(--blue);
+    border-radius:10px;padding:12px 14px;
+  }
+  .email-box code{
+    font-size:1.02rem;font-weight:700;color:var(--navy);
+    background:transparent;
+  }
+  .copy-btn{
+    border:none;background:var(--blue);color:#fff;
+    padding:8px 14px;border-radius:8px;font-size:0.88rem;
+    cursor:pointer;font-weight:600;
+  }
+  .copy-btn:active{transform:scale(0.98);}
+  .copy-btn.copied{background:var(--green);}
+
+  .no-shot{
+    margin:0 0 0 44px;
+    background:#f4f6fb;border:1.5px dashed var(--border);
+    border-radius:12px;padding:20px;
+    text-align:center;color:var(--muted);
+    font-size:0.92rem;
+  }
+  .no-shot .big{font-size:28px;display:block;margin-bottom:6px;}
+
+  .finish{
+    text-align:center;
+    background:linear-gradient(135deg,var(--green),#0b7a45);
+    color:#fff;
+    border-radius:18px;
+    padding:36px 24px;
+    margin-top:40px;
+  }
+  .finish .big-check{font-size:44px;margin-bottom:8px;}
+  .finish h2{margin:0 0 10px;}
+  .finish p{color:#dcf6e7;max-width:480px;margin:0 auto;}
+
+  @media (max-width:480px){
+    .step .explain,.step .action,.callout,.warning,.email-box,.no-shot{margin-left:0;}
+    .step-head{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="icon-row">🍪 🛡️ ✅</div>
+    <h1>Let's Set Up Your Cookie Banner Together</h1>
+    <p>A friendly, no-rush walkthrough for CookieYes — the little pop-up that keeps your website legally compliant. Follow along one picture at a time.</p>
+  </div>
+
+  <div class="intro-card">
+    <span class="time-pill">⏱ Takes about 15 minutes</span>
+    <p><strong>What is a "cookie banner," and why does your website need one?</strong> Whenever a website quietly stores small bits of information in a visitor's browser (to remember their preferences, or to measure traffic), privacy laws like GDPR require you to ask permission first. CookieYes is the free-to-start tool that adds that polite little pop-up for you automatically.</p>
+    <p>This is a three-part journey. <strong>Part 1</strong> creates your account and gets the banner live on your site. <strong>Part 2</strong> is turning on the paid plan ($10/month) that this setup needs. <strong>Part 3</strong> is just one invite so I can help manage things on the technical side.</p>
+    <p>Take your time — nothing here is permanent until you say so, and every screen has a "back" option if something looks off.</p>
+  </div>
+
+  <!-- ===================== PART 1 ===================== -->
+  <div class="part-header">
+    <div class="num">1</div>
+    <div>
+      <h2>Creating Your Account &amp; Banner</h2>
+      <p>Go to <strong>app.cookieyes.com</strong> in your browser to begin.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">1</div>
+      <h3>Create your free account</h3>
+    </div>
+    <p class="explain">This is just a normal sign-up — your email, your website's address, and a password you'll remember.</p>
+    <p class="action">Fill in your <b>email address</b>, your <b>website address</b>, and choose a <b>password</b>. Tick the agreement box, then click <b>Get Started</b>.</p>
+    <img src="images/01-signup.png" alt="Create your free CookieYes account screen">
+  </div>
+
+  <div class="warning">
+    ✉️ <strong>Before you go any further:</strong> check your email inbox for a message from CookieYes and click the verification link inside it. Some steps ahead won't work properly until your email is confirmed — this only takes a moment.
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">2</div>
+      <h3>Set up how your banner looks</h3>
+    </div>
+    <p class="explain">This is just the appearance of your pop-up — you (or I) can always change the colors and wording later, so don't overthink this part.</p>
+    <p class="action">Leave the language as <b>English</b> (unless you need another), pick a <b>layout</b> you like (Banner is a safe default), choose a <b>colour</b>, and click <b>Next Step</b>.</p>
+    <img src="images/02-configure-banner.png" alt="Configure your cookie banner settings screen">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">3</div>
+      <h3>Choose how to install it</h3>
+    </div>
+    <p class="explain">CookieYes needs to know how you'll connect it to your website. There are two options — one is simpler, and it's the one almost everyone should use.</p>
+    <p class="action">Click <b>Install manually on website</b>. (Only choose the other option if you already use something called "Google Tag Manager" — most people don't.)</p>
+    <img src="images/03-choose-install-method.png" alt="Choose install method screen with Install manually highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">4</div>
+      <h3>Copy your banner's code</h3>
+    </div>
+    <p class="explain">This is a short piece of computer code that tells your website to show the banner. Don't worry about understanding it — you're just copying and handing it over.</p>
+    <p class="action">Click <b>Copy code</b>. If you're doing this yourself, paste it right after the opening <code>&lt;head&gt;</code> tag in your site's code. If I'm handling the technical setup, you can simply let me know it's ready — I'll take it from here.</p>
+    <img src="images/04-get-code-verify-prompt.png" alt="Copy the banner installation code screen">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">5</div>
+      <h3>Verify it's working</h3>
+    </div>
+    <p class="explain">This step just double-checks that the code landed in the right place on your site.</p>
+    <p class="action">Click <b>Verify</b>. You should see a green checkmark confirming success.</p>
+    <img src="images/05-verified-success.png" alt="Verification success screen confirming the cookie banner is implemented">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">6</div>
+      <h3>Your banner is live! 🎉</h3>
+    </div>
+    <p class="explain">Your dashboard will now show your banner as "Active." That means visitors to your site will start seeing the cookie pop-up right away.</p>
+    <div class="callout">✅ Part 1 complete — your cookie banner is up and running.</div>
+    <img src="images/06-dashboard-active.png" alt="CookieYes dashboard showing cookie banner status as Active">
+  </div>
+
+  <!-- ===================== PART 2 ===================== -->
+  <div class="part-header">
+    <div class="num">2</div>
+    <div>
+      <h2>Turning On the $10/Month Plan</h2>
+      <p>This step is required — without a paid plan, you won't be able to add me as a helper in Part 3.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">7</div>
+      <h3>Start the upgrade</h3>
+    </div>
+    <p class="explain">On your dashboard, you'll notice a button mentioning a "Pro" trial. Don't let the name worry you — clicking it simply opens the full list of plans; you are not committing to Pro by clicking it.</p>
+    <p class="action">Click the orange <b>Try Pro for free</b> button in the top-right corner.</p>
+    <img src="images/07-click-try-pro-for-free.png" alt="CookieYes dashboard with the Try Pro for free button highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">8</div>
+      <h3>Pick the "Basic" plan</h3>
+    </div>
+    <p class="explain">You'll now see all four plans side by side. We only need the second one from the left.</p>
+    <p class="action">Make sure <b>Monthly</b> is selected, then click <b>Try Basic for free</b> under the <b>Basic — $10/month</b> plan.</p>
+    <img src="images/08-compare-plans-choose-basic.png" alt="Plan comparison screen with the Basic plan's Try Basic for free button highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">9</div>
+      <h3>Understand the free trial</h3>
+    </div>
+    <p class="explain">CookieYes gives you 14 days completely free before anything is charged. You'll even get an email reminder 3 days before that trial ends, so there are no surprises.</p>
+    <p class="action">Read over the trial timeline, then click <b>Add payment details</b> to continue. (You will not be charged today.)</p>
+    <img src="images/09-trial-explanation.png" alt="How your 14-day free trial works, with Add payment details button highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">10</div>
+      <h3>Enter your payment details</h3>
+    </div>
+    <p class="explain">A card is required to hold your spot for after the trial, but as the previous screen showed, <b>today's charge is $0.00</b>.</p>
+    <p class="action">Fill in your <b>card details</b> (or choose PayPal instead), then confirm. This information goes directly to CookieYes's secure payment provider (Stripe) — it never passes through me.</p>
+    <img src="images/10-enter-payment-details.png" alt="Enter payment details checkout screen">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">11</div>
+      <h3>You're on the Basic plan! 🎉</h3>
+    </div>
+    <p class="explain">You'll land on a page listing your site with its plan clearly marked. That confirms the upgrade went through.</p>
+    <div class="callout">✅ Part 2 complete — your plan now says "Basic (Trial)." You're ready for the last step.</div>
+    <img src="images/11-plan-confirmed.png" alt="Organisations and Sites page showing the Basic Trial plan active">
+  </div>
+
+  <!-- ===================== PART 3 ===================== -->
+  <div class="part-header">
+    <div class="num">3</div>
+    <div>
+      <h2>Adding Me as an Administrator</h2>
+      <p>The very last step — one invite, and I can help manage your banner going forward.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">12</div>
+      <h3>Open the Team page</h3>
+    </div>
+    <p class="explain">This is the settings area where you control who else has access to your account.</p>
+    <p class="action">Click the small profile icon in the top-right corner of any page, then choose <b>Team</b> from the menu.</p>
+    <img src="images/12-open-team-page.png" alt="Profile menu open with the Team option highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">13</div>
+      <h3>Invite a new user</h3>
+    </div>
+    <p class="explain">This is how you bring a helper into your account without ever sharing your password.</p>
+    <p class="action">Click <b>+ Invite new user</b>.</p>
+    <img src="images/13-invite-new-user-button.png" alt="Team Members page with the Invite new user button highlighted">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">14</div>
+      <h3>Add my email and set the role to Admin</h3>
+    </div>
+    <p class="explain">This tells CookieYes who I am and exactly how much I'm allowed to do — full access to manage your banner, but never your billing or your card.</p>
+    <p class="action">Choose your <b>organisation</b> from the dropdown, type in the email address below, select <b>Admin</b> under "Role" (not Editor — Editor can't fully manage things), then click <b>Invite user</b>.</p>
+    <div class="email-box">
+      <span>📧</span>
+      <code id="admin-email">jamalinks758@gmail.com</code>
+      <button class="copy-btn" onclick="copyEmail(this)">Copy email</button>
+    </div>
+    <img src="images/14-invite-modal-set-admin.png" alt="Invite new user popup with email entered and Admin role selected">
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-badge">15</div>
+      <h3>You're finished! ✅</h3>
+    </div>
+    <p class="explain">Your Team page will now show a second row with "Admin" as the role and "Pending" as the status — that's confirmation the invite went out. I'll get an email to accept it, and once I do, my status will switch to "Active."</p>
+    <img src="images/15-invite-sent-pending.png" alt="Team Members page showing the new Admin invite with Pending status">
+  </div>
+
+  <div class="finish">
+    <div class="big-check">🎉</div>
+    <h2>Thank you — that's everything!</h2>
+    <p>You've set up a fully compliant cookie banner for your website and safely handed over the technical reins. I'll take it from here.</p>
+  </div>
+
+</div>
+
+<script>
+function copyEmail(btn){
+  var email = document.getElementById('admin-email').textContent;
+  var done = function(){
+    var original = 'Copy email';
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(email).then(done).catch(function(){
+      fallbackCopy(email); done();
+    });
+  } else {
+    fallbackCopy(email); done();
+  }
+}
+function fallbackCopy(text){
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+}
+</script>
+
+</body>
+</html>
